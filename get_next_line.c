@@ -6,7 +6,7 @@
 /*   By: elima-me <elima-me@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 17:35:44 by elima-me          #+#    #+#             */
-/*   Updated: 2021/06/18 18:42:46 by elima-me         ###   ########.fr       */
+/*   Updated: 2021/06/18 19:13:29 by elima-me         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,7 @@ int	read_and_join(int fd, char **read_buffer, char *line_buffer, int *bytes)
 			else
 				temp = ft_strjoin(temp, line_buffer, BUFFER_SIZE + 1);
 			size = ft_strlen(*read_buffer);
-			join_temp = ft_strjoin(*read_buffer, temp, (BUFFER_SIZE + size));
-			*read_buffer = join_temp;
+			*read_buffer = ft_strjoin(*read_buffer, temp, (BUFFER_SIZE + size));
 			free(temp);
 		}
 	}
