@@ -21,5 +21,6 @@ void	ft_strcopy(char *dst, char *src, size_t len);
 char	*ft_strjoin(char *dst, char *src, size_t len);
 int		get_next_line(int fd, char **line);
 char	*ft_strdup(char *str);
+void	*ft_calloc(size_t nmemb, size_t size);
 
 #endif
