@@ -57,8 +57,8 @@ char	*ft_strjoin(char *dst, char *src, size_t len)
 		return (NULL);
 	ft_strcopy(new, dst, ft_strlen(dst) + 1);
 	ft_strcopy((new + ft_strlen(dst)), src, len + 1);
-	// if (dst)
-	// 	free(dst);
+	if (dst)
+		free(dst);
 	return (new);
 }
 
@@ -74,14 +74,3 @@ char	*ft_strdup(char *str)
 	ft_strcopy(new_str, str, size_str + 1);
 	return (new_str);
 }
-
-// int main(void)
-// {
-// 	char *str1 = "salve";
-// 	char *str2 = "quebrada";
-// 	char *str3;
-
-// 	str3 = ft_strjoin(str1, str2, ft_strlen(str2));
-// 	printf("%s\n", str3);
-// 	return 0;
-// }
