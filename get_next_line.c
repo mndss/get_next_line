@@ -6,7 +6,7 @@
 /*   By: elima-me <elima-me@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 17:35:44 by elima-me          #+#    #+#             */
-/*   Updated: 2021/06/17 20:40:59 by elima-me         ###   ########.fr       */
+/*   Updated: 2021/06/18 18:42:46 by elima-me         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	void	*pointer;
 	char	*set;
 	size_t	i;
-	
+
 	i = 0;
 	pointer = malloc(nmemb * size);
 	if (!pointer)
@@ -47,8 +47,11 @@ static char	*make_line(char **line, char **read_buffer)
 	}
 	else
 		*line = ft_strdup(*read_buffer);
-	free(*read_buffer);
-	read_buffer = NULL;
+	if (*read_buffer != NULL)
+	{		
+		free(*read_buffer);
+		read_buffer = NULL;
+	}	
 	if (!line || !temp)
 		return (NULL);
 	return (temp);
@@ -56,9 +59,10 @@ static char	*make_line(char **line, char **read_buffer)
 
 int	read_and_join(int fd, char **read_buffer, char *line_buffer, int *bytes)
 {
-	char *temp;
-	size_t size;
-	
+	char	*temp;
+	char	*join_temp;
+	size_t	size;
+
 	while (*bytes && ft_strchr(*read_buffer, '\n') == -1)
 	{
 		*bytes = read(fd, line_buffer, BUFFER_SIZE);
@@ -75,7 +79,9 @@ int	read_and_join(int fd, char **read_buffer, char *line_buffer, int *bytes)
 			else
 				temp = ft_strjoin(temp, line_buffer, BUFFER_SIZE + 1);
 			size = ft_strlen(*read_buffer);
-			*read_buffer = ft_strjoin(*read_buffer, temp, (BUFFER_SIZE + size));
+			join_temp = ft_strjoin(*read_buffer, temp, (BUFFER_SIZE + size));
+			*read_buffer = join_temp;
+			free(temp);
 		}
 	}
 	free(line_buffer);
@@ -95,7 +101,7 @@ int	get_next_line(int fd, char **line)
 	line_buffer = (char *)ft_calloc(sizeof(char), BUFFER_SIZE + 1);
 	if (!line_buffer)
 		return (-1);
-	if (!read_buffer)	
+	if (!read_buffer)
 		read_buffer = ft_strdup("");
 	already_read = read_and_join(fd, &read_buffer, line_buffer, &bytes);
 	if (already_read == -1 || !line)

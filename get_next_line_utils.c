@@ -52,7 +52,7 @@ char	*ft_strjoin(char *dst, char *src, size_t len)
 
 	if (!dst && !src)
 		return (NULL);
-	new = (char *)ft_calloc(sizeof(char), (ft_strlen(dst) + len));
+	new = (char *)ft_calloc(sizeof(char), (ft_strlen(dst) + len + 1));
 	if (!new)
 		return (NULL);
 	ft_strcopy(new, dst, ft_strlen(dst) + 1);
