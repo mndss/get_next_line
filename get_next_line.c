@@ -6,7 +6,7 @@
 /*   By: elima-me <elima-me@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 17:35:44 by elima-me          #+#    #+#             */
-/*   Updated: 2021/06/18 19:13:29 by elima-me         ###   ########.fr       */
+/*   Updated: 2021/06/18 19:15:53 by elima-me         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static char	*make_line(char **line, char **read_buffer)
 int	read_and_join(int fd, char **read_buffer, char *line_buffer, int *bytes)
 {
 	char	*temp;
-	char	*join_temp;
 	size_t	size;
 
 	while (*bytes && ft_strchr(*read_buffer, '\n') == -1)
