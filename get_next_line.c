@@ -6,7 +6,7 @@
 /*   By: elima-me <elima-me@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 17:35:44 by elima-me          #+#    #+#             */
-/*   Updated: 2021/06/18 21:12:57 by elima-me         ###   ########.fr       */
+/*   Updated: 2021/06/19 20:19:51 by elima-me         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,8 @@ static char	*make_line(char **line, char **read_buffer)
 	}
 	else
 		*line = ft_strdup(*read_buffer);
-	if (*read_buffer != NULL)
-	{		
-		free(*read_buffer);
-		read_buffer = NULL;
-	}	
+	free(*read_buffer);
+	read_buffer = NULL;
 	if (!line || !temp)
 		return (NULL);
 	return (temp);
@@ -102,7 +99,7 @@ int	get_next_line(int fd, char **line)
 	if (!read_buffer)
 		read_buffer = ft_strdup("");
 	already_read = read_and_join(fd, &read_buffer, line_buffer, &bytes);
-	if (already_read == -1 || !line)
+	if (already_read == -1)
 		return (-1);
 	read_buffer = make_line(line, &read_buffer);
 	if (!bytes)
