@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: elima-me <elima-me@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 17:35:44 by elima-me          #+#    #+#             */
-/*   Updated: 2021/06/18 21:12:57 by elima-me         ###   ########.fr       */
+/*   Updated: 2021/06/18 21:26:36 by elima-me         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
@@ -88,7 +88,7 @@ int	read_and_join(int fd, char **read_buffer, char *line_buffer, int *bytes)
 
 int	get_next_line(int fd, char **line)
 {
-	static char	*read_buffer;
+	static char	*read_buffer[RLIMIT_NOFILE];
 	char		*line_buffer;
 	int			bytes;
 	int			already_read;
@@ -99,15 +99,15 @@ int	get_next_line(int fd, char **line)
 	line_buffer = (char *)ft_calloc(sizeof(char), BUFFER_SIZE + 1);
 	if (!line_buffer)
 		return (-1);
-	if (!read_buffer)
-		read_buffer = ft_strdup("");
-	already_read = read_and_join(fd, &read_buffer, line_buffer, &bytes);
+	if (!read_buffer[fd])
+		read_buffer[fd] = ft_strdup("");
+	already_read = read_and_join(fd, &read_buffer[fd], line_buffer, &bytes);
 	if (already_read == -1 || !line)
 		return (-1);
-	read_buffer = make_line(line, &read_buffer);
+	read_buffer[fd] = make_line(line, &read_buffer[fd]);
 	if (!bytes)
 	{
-		free(read_buffer);
+		free(read_buffer[fd]);
 		return (0);
 	}
 	return (1);
